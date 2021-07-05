@@ -1,0 +1,18 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("MY_CUSTOM_DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Basket {
+  id    String @id @default(cuid())
+  fruit Fruit
+}
+
+enum Fruit {
+  Apple
+  Banana
+}
