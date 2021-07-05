@@ -1,18 +1,27 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("MY_CUSTOM_DB_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model Basket {
-  id    String @id @default(cuid())
-  fruit Fruit
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-enum Fruit {
-  Apple
-  Banana
+model User {
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String?
+  email     String
+  Link      Link[]
+}
+
+model Link {
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  url       String
+  shortUrl  String
+  userId    String?
+  User      User?    @relation(fields: [userId], references: [id])
 }
